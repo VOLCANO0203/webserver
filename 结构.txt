@@ -1,0 +1,11 @@
+cn.volcano.core			----核心代码包
+					  		--WebServer类	代表服务器端程序
+					  		--ClientHandler类	抽取代码
+cn.volcano.http			----与http协议相关的代码
+					  		--HttpRequest对象	封装请求信息
+					  		--HttpResponse对象	封装响应对象
+cn.volcano.context		----全局的，配置参数信息
+							--ServerContext		封装服务器参数
+							--HttpContext		封装http协议相关的参数
+config目录				----配置文件
+							--web.xml	配置全局信息
