@@ -6,11 +6,14 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import cn.volcano.context.ServerContext;
+
 /**
  * 这个类用来代表服务器端的程序 
  * 	1.声明ServerSocket对象
  *	2.在构造方法中初始化ServerSocket
- * 	3.创建start方法，接收客户端请求并响应 4.main方法启动服务器
+ * 	3.创建start方法，接收客户端请求并响应 
+ * 	4.main方法启动服务器
  * 
  * @author VOLCANO
  *
@@ -23,9 +26,9 @@ public class WebServer {
 
 	public WebServer() {
 		try {
-			server = new ServerSocket(8080);
+			server = new ServerSocket(ServerContext.port);
 			//初始化线程池
-			threadPool = Executors.newFixedThreadPool(100);
+			threadPool = Executors.newFixedThreadPool(ServerContext.maxSize);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -43,7 +46,6 @@ public class WebServer {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
