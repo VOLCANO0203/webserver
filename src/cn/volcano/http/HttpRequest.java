@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 用来封装请求行信息
@@ -17,6 +19,9 @@ public class HttpRequest {
 	private String uri;
 	//遵循的协议名和版本号
 	private String protocol;
+	
+	//声明paramMap集合，用于存放请求中的所有参数信息
+	private Map<String, String> paramMap;
 	
 	public HttpRequest(InputStream in) {
 		try {
@@ -35,6 +40,26 @@ public class HttpRequest {
 					uri = "/index.html";
 				}
 				protocol = datas[2];
+				
+				//将请求中的参数封装在paramMap集合中
+				paramMap = new HashMap<>();
+				if(uri.contains("?")) {
+					//uri=/...?username=zhangsan&password=123
+					//从请求资源中截取所有参数组成的字符串
+					String paramStrs = uri.substring(uri.indexOf("?")+1);
+					//将所有参数组成的字符串进行切割
+					String[] params = paramStrs.split("&");
+					
+					for (String param : params) {
+						String[] ch = param.split("=");
+						String key = ch[0];
+						String value = ch[1];
+						//供测试用
+						//System.out.println(key+": "+value);
+						
+						paramMap.put(key, value);
+					}	
+				}	
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -42,6 +67,10 @@ public class HttpRequest {
 		}
 	}
 
+	public String getParameter(String key) {
+		return paramMap.get(key);
+	}
+	
 	public String getMethod() {
 		return method;
 	}

@@ -14,5 +14,12 @@
 			<typemapping ext="jpg" type="image/jpeg"></typemapping>
 		</typemappings>
 		
+		<!-- 动态显示状态码和状态短语 -->
+		<statusmappings>
+			<statusmapping st="200" stline="OK"></statusmapping>
+			<statusmapping st="404" stline="Not Found"></statusmapping>
+			<statusmapping st="500" stline="Internal Server Error"></statusmapping>
+		</statusmappings>
+		
 	</service>
 </server>

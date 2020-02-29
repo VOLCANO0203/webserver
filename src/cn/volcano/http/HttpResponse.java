@@ -3,8 +3,13 @@ package cn.volcano.http;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import cn.volcano.context.ServerContext;
+
 /**
- * 用来封装响应信息 HTTP/1.1 200 OK Content-Type:text/html Content-Length:129
+ * 用来封装响应信息 
+ * HTTP/1.1 200 OK 
+ * Content-Type:text/html 
+ * Content-Length:129
  * 
  * @author VOLCANO
  *
@@ -28,13 +33,13 @@ public class HttpResponse {
 		this.out = out;
 	}
 
-	private boolean isSend;
+	private boolean isSend = false;
 
 	public OutputStream getOutputStream() {
 		if (!isSend) {
-			PrintStream ps = new PrintStream(out);
+			PrintStream ps = new PrintStream(this.out);
 			// 状态行
-			ps.println(protocol + " " + status + " OK");
+			ps.println(protocol + " " + status + " "+ServerContext.statusMap.get(status));
 
 			// 响应头
 			ps.println("Content-Type:" + contentType);
